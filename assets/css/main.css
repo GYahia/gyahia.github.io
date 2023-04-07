@@ -1810,7 +1810,6 @@ input, select, textarea {
 }
 
 
-
 /* Banner */
 
 	#banner {
@@ -2378,10 +2377,14 @@ input, select, textarea {
 		/* List */
 
 			ul.menu li {
-				display: block;
+				border-left: solid 1px #eee;
+				display: inline-block;
+				
+		padding: 0 0 0 1em;
+		margin: 0 0 0 1em;
 				border: 0 !important;
-				padding: 0 !important;
-				margin: 0 !important;
+				/* padding: 0 !important;
+				margin: 0 !important; */
 			}
 
 			ul.actions li {
