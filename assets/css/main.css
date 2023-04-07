@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,800");
 @import url("fontawesome-all.min.css");
 
+
 /*
 	ZeroFour by HTML5 UP
 	html5up.net | @ajlkn
@@ -1425,7 +1426,7 @@ input, select, textarea {
 
 			.image.centered img {
 				margin: 0 auto;
-				width: auto;
+				height: 450px;
 			}
 
 /* Button */
@@ -1710,7 +1711,7 @@ input, select, textarea {
 			  margin: -4px 0;
 			font-size: medium;
 		  }
-		  
+
 
 /* Nav */
 
@@ -1753,6 +1754,15 @@ input, select, textarea {
 			#nav > ul > li > ul {
 				display: none;
 			}
+			#nav a:hover {
+				background-color: #fff;
+				color: rgba(0, 0, 0, 0.15);
+			}
+
+
+
+
+
 
 	.dropotron {
 		background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0)), url("images/bg02.png");
@@ -1790,6 +1800,16 @@ input, select, textarea {
 		.dropotron li:hover > a, .dropotron li:hover > span {
 			color: #fff;
 		}
+/* Menu button*/
+#menu-btn {
+  position: fixed;
+  top: 50px;
+  right: 30px;
+  z-index: 9999;
+  background-color: transparent;
+}
+
+
 
 /* Banner */
 
