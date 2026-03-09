@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghassen Yahia — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #0f1217;
+    --bg3: #151a22;
+    --border: #1e2530;
+    --border-bright: #2a3444;
+    --green: #00e5a0;
+    --green-dim: #00b37d;
+    --green-glow: rgba(0, 229, 160, 0.12);
+    --green-glow2: rgba(0, 229, 160, 0.05);
+    --blue: #4da9ff;
+    --orange: #ff8c42;
+    --text: #c8d4e0;
+    --text-dim: #5a6a7a;
+    --text-bright: #e8f0f8;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 56px;
+    background: rgba(10, 12, 15, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text-dim); }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 70%);
+    opacity: 0.4;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; max-width: 900px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--green); }
+
+  h1 {
+    font-family: var(--sans);
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+  h1 .accent { color: var(--green); }
+
+  .hero-sub {
+    font-family: var(--sans);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-bio {
+    max-width: 560px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+  .hero-bio strong { color: var(--green); font-weight: 600; }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.7s;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: var(--sans); font-size: 28px; font-weight: 800; color: var(--green); line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--green); color: #0a0c0f; font-weight: 700; }
+  .btn-primary:hover { background: #00ffb3; box-shadow: 0 0 24px rgba(0,229,160,0.4); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-bright); }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+
+  /* TICKER */
+  .ticker {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 30s linear infinite; }
+  .ticker-item { font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; flex-shrink: 0; }
+  .ticker-item span { color: var(--green); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section {
+    padding: 96px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+  .section-num { font-size: 11px; color: var(--green); letter-spacing: 0.15em; white-space: nowrap; }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-bright), transparent); max-width: 120px; }
+
+  h2 {
+    font-family: var(--sans);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+  }
+
+  /* PROJECT CARDS */
+  .projects-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+  }
+  .project-card:hover { border-color: var(--green-dim); transform: translateX(4px); }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--green);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-body { padding: 40px; border-right: 1px solid var(--border); }
+
+  .project-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .tag-sql { background: rgba(77,169,255,0.1); color: var(--blue); border: 1px solid rgba(77,169,255,0.2); }
+  .tag-powerbi { background: rgba(255,140,66,0.1); color: var(--orange); border: 1px solid rgba(255,140,66,0.2); }
+  .tag-tableau { background: rgba(0,229,160,0.1); color: var(--green); border: 1px solid rgba(0,229,160,0.2); }
+  .tag-featured { background: rgba(0,229,160,0.08); color: var(--green); border: 1px solid rgba(0,229,160,0.15); font-size: 9px; letter-spacing: 0.12em; }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .project-desc { font-size: 13px; color: var(--text); line-height: 1.8; margin-bottom: 24px; }
+
+  .project-highlights { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+  .highlight { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: var(--text-dim); }
+  .highlight::before { content: '▸'; color: var(--green); flex-shrink: 0; margin-top: 1px; font-size: 10px; }
+
+  .project-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    background: transparent;
+  }
+  .link-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glow2); }
+
+  .project-sidebar { padding: 40px 32px; background: var(--bg3); display: flex; flex-direction: column; gap: 28px; }
+
+  .sidebar-section-title { font-size: 10px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+
+  .metric-row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-key { color: var(--text-dim); }
+  .metric-val { color: var(--green); font-weight: 600; text-align: right; max-width: 160px; }
+
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 4px 10px; font-size: 10px; letter-spacing: 0.06em; color: var(--text-dim); background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; }
+
+  .article-preview {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(0,229,160,0.04);
+    border: 1px solid rgba(0,229,160,0.12);
+    border-radius: 3px;
+  }
+  .article-label {
+    font-size: 10px; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+  }
+  .article-label::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .article-title { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--text-bright); margin-bottom: 6px; line-height: 1.3; }
+  .article-excerpt { font-size: 11px; color: var(--text-dim); line-height: 1.6; margin-bottom: 10px; }
+  .article-link { font-size: 11px; color: var(--green); text-decoration: none; letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 4px; }
+  .article-link:hover { text-decoration: underline; }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .tool-cell { background: var(--bg2); padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: background 0.2s; }
+  .tool-cell:hover { background: var(--bg3); }
+  .tool-name { font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--text-bright); }
+  .tool-level { font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .tool-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+  .tool-fill { height: 100%; background: var(--green); border-radius: 1px; transition: width 1s ease; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+  .about-text p { font-size: 13px; color: var(--text); line-height: 1.85; margin-bottom: 18px; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-text strong { color: var(--green); font-weight: 600; }
+
+  .about-cards { display: flex; flex-direction: column; gap: 12px; }
+
+  .about-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.25s;
+  }
+  .about-card:hover { border-color: var(--border-bright); }
+
+  .about-card-icon {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 6px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    line-height: 1.4;
+    text-align: center;
+    min-width: 52px;
+  }
+
+  .about-card-title { font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--text-bright); margin-bottom: 4px; }
+  .about-card-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 0.04em; }
+
+  /* CONTACT */
+  .contact-section { border-top: 1px solid var(--border); background: var(--bg2); }
+
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 96px 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-title { font-family: var(--sans); font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: var(--text-bright); letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.1; }
+  .contact-title .accent { color: var(--green); }
+  .contact-sub { font-size: 13px; color: var(--text-dim); line-height: 1.8; max-width: 420px; }
+
+  .contact-links { display: flex; flex-direction: column; gap: 12px; min-width: 240px; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    padding: 14px 20px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg3);
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--green-dim); background: rgba(0,229,160,0.04); transform: translateX(4px); }
+
+  .contact-link-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; width: 72px; flex-shrink: 0; }
+  .contact-link-value { font-size: 12px; color: var(--text); transition: color 0.2s; }
+  .contact-link:hover .contact-link-value { color: var(--green); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-left { font-size: 11px; color: var(--text-dim); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero { padding: 80px 24px 48px; }
+    section { padding: 64px 24px; }
+    footer { padding: 24px; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-body { border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-stats { gap: 24px; }
+    h1 { font-size: 36px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-inner { grid-template-columns: 1fr; padding: 64px 24px; gap: 40px; }
+    .nav-status { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>~/</span>ghassen.yahia</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Stack</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    Open to opportunities
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Data Analyst · Calgary, AB</div>
+    <h1>Ghassen <span class="accent">Yahia</span></h1>
+    <div class="hero-sub">Turning raw data into decisions.</div>
+    <p class="hero-bio">
+      PhD in Physics turned data analyst. I bring <strong>scientific rigour</strong> to messy real-world datasets — from 6.6M civic records to live job market intelligence.
+      Currently building towards <strong>Business &amp; Data Analyst</strong> roles in Calgary's tech, energy, and financial sectors.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">6.7M+</span><span class="stat-label">Rows analysed</span></div>
+      <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Tools mastered</span></div>
+      <div class="stat"><span class="stat-num">9</span><span class="stat-label">Projects shipped</span></div>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/ghassen-yahia/" target="_blank">LinkedIn Profile</a>
+      <a class="btn btn-ghost" href="https://github.com/GYahia" target="_blank">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">SQL <span>·</span> Data Cleaning</span>
+    <span class="ticker-item">Power BI <span>·</span> DAX</span>
+    <span class="ticker-item">Tableau <span>·</span> Data Storytelling</span>
+    <span class="ticker-item">MySQL <span>·</span> Window Functions</span>
+    <span class="ticker-item">Calgary Open Data <span>·</span> 6.6M Records</span>
+    <span class="ticker-item">KPI Reporting <span>·</span> EDA</span>
+    <span class="ticker-item">Google Data Analytics <span>·</span> Certified</span>
+    <span class="ticker-item">PhD Physics <span>·</span> Analytical Rigour</span>
+    <span class="ticker-item">SQL <span>·</span> Data Cleaning</span>
+    <span class="ticker-item">Power BI <span>·</span> DAX</span>
+    <span class="ticker-item">Tableau <span>·</span> Data Storytelling</span>
+    <span class="ticker-item">MySQL <span>·</span> Window Functions</span>
+    <span class="ticker-item">Calgary Open Data <span>·</span> 6.6M Records</span>
+    <span class="ticker-item">KPI Reporting <span>·</span> EDA</span>
+    <span class="ticker-item">Google Data Analytics <span>·</span> Certified</span>
+    <span class="ticker-item">PhD Physics <span>·</span> Analytical Rigour</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">01 //</span>
+    <h2>Featured Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- 311 Calgary -->
+    <div class="project-card reveal">
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="tag tag-sql">SQL · MySQL</span>
+          <span class="tag tag-featured">★ Flagship</span>
+        </div>
+        <h3>Calgary 311 Service Requests<br>— Civic Operations Analysis</h3>
+        <p class="project-desc">End-to-end SQL analytics project on 6.67 million civic service records from the City of Calgary Open Data Portal. Designed a staging→analytics mart pipeline, built 30-day recurrence detection logic, and identified geographic hotspots to inform municipal resource allocation.</p>
+        <div class="project-highlights">
+          <div class="highlight">Processed 6,672,894 records across 4 modular SQL scripts (temporal, efficiency, geographic, trends)</div>
+          <div class="highlight">~41–46% of resolved issues recur within 30 days — revealing systemic gaps in municipal maintenance</div>
+          <div class="highlight">Identified Downtown, Beltline &amp; Bowness as top hotspot communities by recurring incident density</div>
+          <div class="highlight">Seasonal demand peaks in June (730k+ requests); Tuesday–Thursday see highest weekday volume</div>
+        </div>
+        <div class="project-links">
+          <a class="link-btn" href="https://github.com/GYahia/MySQL/tree/main/311ServiceRequestsCalgary%20-%20Update" target="_blank">⌥ GitHub Repo</a>
+        </div>
+      </div>
+      <div class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Project Stats</div>
+          <div class="metric-row"><span class="metric-key">Dataset size</span><span class="metric-val">6.67M rows</span></div>
+          <div class="metric-row"><span class="metric-key">SQL scripts</span><span class="metric-val">4 modules</span></div>
+          <div class="metric-row"><span class="metric-key">Years covered</span><span class="metric-val">2012–2025</span></div>
+          <div class="metric-row"><span class="metric-key">Recurrence rate</span><span class="metric-val">41–46%</span></div>
+          <div class="metric-row"><span class="metric-key">Avg response time</span><span class="metric-val">19+ days</span></div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Techniques</div>
+          <div class="skill-chips">
+            <span class="chip">CTEs</span>
+            <span class="chip">Window Functions</span>
+            <span class="chip">ROW_NUMBER()</span>
+            <span class="chip">Temporal Aggregation</span>
+            <span class="chip">30-day Recurrence Logic</span>
+            <span class="chip">Staging Tables</span>
+            <span class="chip">GIS-ready coords</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DA Postings Canada -->
+    <div class="project-card reveal">
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="tag tag-powerbi">Power BI · Python</span>
+          <span class="tag tag-featured">New</span>
+        </div>
+        <h3>Canadian Data Analyst Job Market<br>— Feb 2026 Intelligence Report</h3>
+        <p class="project-desc">Live market intelligence dashboard built in Power BI, analysing Data Analyst job postings across Canada (February 2026). Scraped and structured real posting data to surface demand patterns, required skills, salary signals, and geographic concentration — directly informing job search strategy.</p>
+        <div class="project-highlights">
+          <div class="highlight">Self-directed research: collected, cleaned, and visualised real posting data from LinkedIn &amp; Indeed</div>
+          <div class="highlight">Identified top skills, experience thresholds, and industries driving DA hiring nationally</div>
+          <div class="highlight">Interactive Power BI dashboard with filters by province, seniority, and skill requirements</div>
+        </div>
+        <div class="project-links">
+          <a class="link-btn" href="https://github.com/GYahia/Power-BI/tree/main/DA_Postings_Canada_February_26_2026" target="_blank">⌥ GitHub Repo</a>
+        </div>
+      </div>
+      <div class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Project Stats</div>
+          <div class="metric-row"><span class="metric-key">Data source</span><span class="metric-val">LinkedIn / Indeed</span></div>
+          <div class="metric-row"><span class="metric-key">Scope</span><span class="metric-val">Canada-wide</span></div>
+          <div class="metric-row"><span class="metric-key">Snapshot date</span><span class="metric-val">Feb 26, 2026</span></div>
+          <div class="metric-row"><span class="metric-key">Tool</span><span class="metric-val">Power BI + Python</span></div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Techniques</div>
+          <div class="skill-chips">
+            <span class="chip">Power BI</span>
+            <span class="chip">Python (scraping)</span>
+            <span class="chip">Data Cleaning</span>
+            <span class="chip">Market Analysis</span>
+            <span class="chip">Interactive Filters</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fraud Canada -->
+    <div class="project-card reveal">
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="tag tag-tableau">Tableau · Data Storytelling</span>
+        </div>
+        <h3>Fraud &amp; Cybercrime in Canada<br>— Demographic Analysis (2021–2024)</h3>
+        <p class="project-desc">Interactive Tableau dashboard analysing national fraud and cybercrime data, exploring geographic distribution of losses, victim age demographics, and solicitation method trends across Canada's provinces from 2021 to 2024.</p>
+        <div class="project-highlights">
+          <div class="highlight">Ontario: 82,896 reports · $671.7M in losses — highest concentration nationally</div>
+          <div class="highlight">Mapped regional loss distribution alongside demographic vulnerability by age group</div>
+          <div class="highlight">Published LinkedIn article translating visual findings into policy-relevant narrative</div>
+        </div>
+        <div class="project-links">
+          <a class="link-btn" href="https://public.tableau.com/app/profile/ghassen.yahia/viz/DemographicalStudyofFraud-Canada/Dashboard1" target="_blank">⌥ Tableau Public</a>
+          <a class="link-btn" href="https://www.linkedin.com/pulse/understanding-fraud-trends-canada-2021-2024-deep-dive-ghassen-yahia-31p6c/" target="_blank">✎ Read Article</a>
+        </div>
+        <div class="article-preview">
+          <div class="article-label">Published Article</div>
+          <div class="article-title">Understanding Fraud Trends in Canada (2021–2024): A Deep Dive into Solicitation Methods and Victim Demographics</div>
+          <div class="article-excerpt">Ontario leads with $671.7M in losses across 82,896 reports. The analysis reveals how digital platforms have concentrated fraud in Canada's most populated provinces — and which demographics are most at risk.</div>
+          <a class="article-link" href="https://www.linkedin.com/pulse/understanding-fraud-trends-canada-2021-2024-deep-dive-ghassen-yahia-31p6c/" target="_blank">Read on LinkedIn →</a>
+        </div>
+      </div>
+      <div class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Project Stats</div>
+          <div class="metric-row"><span class="metric-key">Period</span><span class="metric-val">2021–2024</span></div>
+          <div class="metric-row"><span class="metric-key">Provinces</span><span class="metric-val">All Canada</span></div>
+          <div class="metric-row"><span class="metric-key">Top loss (ON)</span><span class="metric-val">$671.7M</span></div>
+          <div class="metric-row"><span class="metric-key">Output</span><span class="metric-val">Dashboard + Article</span></div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Techniques</div>
+          <div class="skill-chips">
+            <span class="chip">Tableau</span>
+            <span class="chip">Geographic Maps</span>
+            <span class="chip">Demographic Analysis</span>
+            <span class="chip">Data Storytelling</span>
+            <span class="chip">LinkedIn Publishing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools" style="padding-top: 0;">
+  <div class="section-header">
+    <span class="section-num">02 //</span>
+    <h2>Technical Stack</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-cell reveal">
+      <div class="tool-name">SQL / MySQL</div>
+      <div class="tool-level">Proficient</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 82%"></div></div>
+    </div>
+    <div class="tool-cell reveal">
+      <div class="tool-name">Excel</div>
+      <div class="tool-level">Proficient</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 80%"></div></div>
+    </div>
+    <div class="tool-cell reveal">
+      <div class="tool-name">Power BI</div>
+      <div class="tool-level">Intermediate</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 60%"></div></div>
+    </div>
+    <div class="tool-cell reveal">
+      <div class="tool-name">Tableau</div>
+      <div class="tool-level">Intermediate</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 58%"></div></div>
+    </div>
+    <div class="tool-cell reveal">
+      <div class="tool-name">Python</div>
+      <div class="tool-level">Learning</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 30%"></div></div>
+    </div>
+    <div class="tool-cell reveal">
+      <div class="tool-name">Data Cleaning</div>
+      <div class="tool-level">Strong</div>
+      <div class="tool-bar"><div class="tool-fill" style="width: 85%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding-top: 0;">
+  <div class="section-header">
+    <span class="section-num">03 //</span>
+    <h2>About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I hold a <strong>PhD in Physics</strong> and spent several years in technical support and customer experience — roles that sharpened my ability to diagnose problems systematically, communicate findings to non-technical audiences, and deliver under pressure.
+      </p>
+      <p>
+        I'm now applying that same analytical foundation to data. My projects aren't chosen for their aesthetic appeal — they're <strong>questions I actually wanted answered</strong>: how does Calgary's civic infrastructure perform at scale? What do local employers actually demand? Where is fraud hitting Canadians hardest and why?
+      </p>
+      <p>
+        Based in Calgary. Targeting <strong>Data Analyst, Business Analyst, and Operations Analyst</strong> roles in Alberta's energy, finance, and technology sectors. Bilingual in English and French.
+      </p>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="about-card-icon">PhD</div>
+        <div>
+          <div class="about-card-title">Doctor of Philosophy — Physics</div>
+          <div class="about-card-sub">Quantitative research · Statistical analysis · Scientific method</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">GDAC</div>
+        <div>
+          <div class="about-card-title">Google Data Analytics Certificate</div>
+          <div class="about-card-sub">Google · Coursera · Data lifecycle &amp; tools</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">CX</div>
+        <div>
+          <div class="about-card-title">Technical Support — Tier 2</div>
+          <div class="about-card-sub">Stakeholder communication · Problem diagnosis · KPI reporting</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">EN<br>FR</div>
+        <div>
+          <div class="about-card-title">Bilingual — English &amp; French</div>
+          <div class="about-card-sub">Professional proficiency in both languages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="contact-title">Let's <span class="accent">connect</span></div>
+      <p class="contact-sub">Open to Data Analyst, Business Analyst, and Operations Analyst roles in Calgary. Always happy to talk data, SQL, or career transitions into analytics.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="https://www.linkedin.com/in/ghassen-yahia/" target="_blank">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">ghassen-yahia</span>
+      </a>
+      <a class="contact-link" href="https://github.com/GYahia" target="_blank">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-value">GYahia</span>
+      </a>
+      <a class="contact-link" href="https://public.tableau.com/app/profile/ghassen.yahia" target="_blank">
+        <span class="contact-link-label">Tableau</span>
+        <span class="contact-link-value">ghassen.yahia</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <span style="color: var(--green)">~/ghassen.yahia</span> &nbsp;·&nbsp; Calgary, AB &nbsp;·&nbsp; Open to Data &amp; Business Analyst roles
+  </div>
+  <div class="footer-links">
+    <a href="https://github.com/GYahia" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/ghassen-yahia/" target="_blank">LinkedIn</a>
+    <a href="https://public.tableau.com/app/profile/ghassen.yahia" target="_blank">Tableau</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.tool-fill').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => bar.style.width = w, 100);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.tools-grid').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>
