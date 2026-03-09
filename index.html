@@ -1,3 +1,69 @@
+<!--
+  ============================================================
+  GHASSEN YAHIA — DATA ANALYST PORTFOLIO
+  ============================================================
+
+  QUICK REFERENCE — WHERE TO FIND THINGS:
+  ─────────────────────────────────────────
+  HERO STATS          → Search "EDIT: HERO STATS" (~line 540)
+  TICKER STRIP        → Search "EDIT: TICKER" (~line 552)
+  ADD A PROJECT       → Search "EDIT: ADD PROJECT HERE" (~line 707)
+  TOOL SKILL BARS     → Search "EDIT: TOOLS" (~line 711)
+  ABOUT TEXT          → Search "EDIT: ABOUT TEXT" (~line 761)
+  ABOUT CREDENTIALS   → Search "EDIT: CREDENTIALS" (~line 771)
+  CONTACT LINKS       → Search "EDIT: CONTACT LINKS" (~line 811)
+  FOOTER TEXT         → Search "EDIT: FOOTER" (~line 829)
+
+  PROJECT CARD TEMPLATE (copy & paste to add a new project):
+  ─────────────────────────────────────────────────────────
+  Tag options: tag-sql | tag-powerbi | tag-tableau
+  Badge options: ★ Flagship | New | (remove tag-featured span entirely)
+
+    <!-- PROJECT: [YOUR PROJECT NAME] ─────────────────── 
+    <div class="project-card reveal">
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="tag tag-sql">SQL · MySQL</span>
+          <span class="tag tag-featured">New</span>
+        </div>
+        <h3>Project Title<br>— Subtitle</h3>
+        <p class="project-desc">One paragraph description.</p>
+        <div class="project-highlights">
+          <div class="highlight">Key finding or metric 1</div>
+          <div class="highlight">Key finding or metric 2</div>
+          <div class="highlight">Key finding or metric 3</div>
+        </div>
+        <div class="project-links">
+          <a class="link-btn" href="YOUR_LINK" target="_blank">⌥ GitHub Repo</a>
+        </div>
+      </div>
+      <div class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Project Stats</div>
+          <div class="metric-row"><span class="metric-key">Stat label</span><span class="metric-val">Value</span></div>
+        </div>
+        <div>
+          <div class="sidebar-section-title">Techniques</div>
+          <div class="skill-chips">
+            <span class="chip">Technique 1</span>
+            <span class="chip">Technique 2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  TO ADD AN ARTICLE PREVIEW inside a project card,
+  paste this block just before the closing </div> of .project-body:
+
+        <div class="article-preview">
+          <div class="article-label">Published Article</div>
+          <div class="article-title">Article Title</div>
+          <div class="article-excerpt">One or two sentence excerpt.</div>
+          <a class="article-link" href="LINKEDIN_URL" target="_blank">Read on LinkedIn →</a>
+        </div>
+
+  ============================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -533,9 +599,20 @@
       PhD in Physics turned data analyst. I bring <strong>scientific rigour</strong> to messy real-world datasets — from 6.6M civic records to live job market intelligence.
       Currently building towards <strong>Business &amp; Data Analyst</strong> roles in Calgary's tech, energy, and financial sectors.
     </p>
+    <!-- EDIT: HERO STATS ─────────────────────────────────────
+         Rows analysed : 6.7M = 311 Calgary (6,672,894) only.
+                         Update if DA Canada postings dataset is large.
+         Tools mastered: SQL, Excel, Power BI, Tableau = 4 confirmed.
+                         Change to 5 when Python is production-ready.
+         Projects shipped: count all public projects across GitHub/Tableau.
+                         Currently: 311 Calgary, World Layoffs, Unicorn Companies,
+                         BA Postings Calgary, DA Postings Canada,
+                         Fraud Canada, Alberta Wildfires, AirBnB Seattle,
+                         Starbucks US = 9 total.
+    ──────────────────────────────────────────────────────── -->
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num">6.7M+</span><span class="stat-label">Rows analysed</span></div>
-      <div class="stat"><span class="stat-num">4+</span><span class="stat-label">Tools mastered</span></div>
+      <div class="stat"><span class="stat-num">6.7M</span><span class="stat-label">Rows analysed</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Tools mastered</span></div>
       <div class="stat"><span class="stat-num">9</span><span class="stat-label">Projects shipped</span></div>
     </div>
     <div class="hero-actions">
@@ -546,7 +623,13 @@
   </div>
 </div>
 
-<!-- TICKER -->
+<!-- TICKER ─────────────────────────────────────────────────
+     Scrolling skills strip. Add or remove <span class="ticker-item"> entries.
+     IMPORTANT: The list is duplicated (items appear twice) to create a
+     seamless infinite loop. If you add/remove items, duplicate the
+     entire set below so both halves stay identical.
+──────────────────────────────────────────────────────────── -->
+<!-- EDIT: TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">SQL <span>·</span> Data Cleaning</span>
@@ -568,7 +651,12 @@
   </div>
 </div>
 
-<!-- PROJECTS -->
+<!-- PROJECTS ────────────────────────────────────────────────
+     Each project is a .project-card div inside .projects-grid.
+     Cards stack vertically in order — first card = top of list.
+     To reorder projects, cut/paste the entire <!-- PROJECT: ... --> block.
+     To add a new project, copy the template from the top comment block.
+──────────────────────────────────────────────────────────── -->
 <section id="projects">
   <div class="section-header">
     <span class="section-num">01 //</span>
@@ -577,7 +665,7 @@
   </div>
   <div class="projects-grid">
 
-    <!-- 311 Calgary -->
+    <!-- PROJECT: 311 Calgary ──────────────────────────────── -->
     <div class="project-card reveal">
       <div class="project-body">
         <div class="project-meta">
@@ -620,7 +708,7 @@
       </div>
     </div>
 
-    <!-- DA Postings Canada -->
+    <!-- PROJECT: DA Postings Canada ──────────────────────── -->
     <div class="project-card reveal">
       <div class="project-body">
         <div class="project-meta">
@@ -659,7 +747,7 @@
       </div>
     </div>
 
-    <!-- Fraud Canada -->
+    <!-- PROJECT: Fraud Canada ─────────────────────────────── -->
     <div class="project-card reveal">
       <div class="project-body">
         <div class="project-meta">
@@ -704,10 +792,21 @@
       </div>
     </div>
 
+    <!-- EDIT: ADD PROJECT HERE ────────────────────────────
+         Paste the next project card block above this comment.
+         Copy the template from the top-of-file comment block.
+    ──────────────────────────────────────────────────────── -->
+
   </div>
 </section>
-
-<!-- TOOLS -->
+<!-- TOOLS ───────────────────────────────────────────────────
+     Each .tool-cell = one skill bar.
+     EDIT: TOOLS
+     - tool-name  : display name
+     - tool-level : text label (Proficient / Intermediate / Learning / Strong)
+     - tool-fill  : bar width as % (e.g. style="width: 82%")
+     To add a new tool, copy any .tool-cell block and paste inside .tools-grid.
+──────────────────────────────────────────────────────────── -->
 <section id="tools" style="padding-top: 0;">
   <div class="section-header">
     <span class="section-num">02 //</span>
@@ -748,7 +847,12 @@
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ABOUT ───────────────────────────────────────────────────
+     Two columns: bio text (left) + credential cards (right).
+     EDIT: ABOUT TEXT  → update the 3 <p> paragraphs on the left
+     EDIT: CREDENTIALS → add/remove .about-card blocks on the right
+                         Each card: icon (short label) + title + subtitle
+──────────────────────────────────────────────────────────── -->
 <section id="about" style="padding-top: 0;">
   <div class="section-header">
     <span class="section-num">03 //</span>
@@ -756,6 +860,8 @@
     <div class="section-line"></div>
   </div>
   <div class="about-grid">
+
+    <!-- EDIT: ABOUT TEXT ──────────────────────────────────── -->
     <div class="about-text reveal">
       <p>
         I hold a <strong>PhD in Physics</strong> and spent several years in technical support and customer experience — roles that sharpened my ability to diagnose problems systematically, communicate findings to non-technical audiences, and deliver under pressure.
@@ -767,6 +873,13 @@
         Based in Calgary. Targeting <strong>Data Analyst, Business Analyst, and Operations Analyst</strong> roles in Alberta's energy, finance, and technology sectors. Bilingual in English and French.
       </p>
     </div>
+
+    <!-- EDIT: CREDENTIALS ─────────────────────────────────
+         To add a credential, copy one .about-card block below.
+         icon   : short text shown in the green badge (2-5 chars)
+         title  : full credential name
+         sub    : issuer / description
+    ──────────────────────────────────────────────────────── -->
     <div class="about-cards reveal">
       <div class="about-card">
         <div class="about-card-icon">PhD</div>
@@ -797,16 +910,23 @@
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT ─────────────────────────────────────────────────
+     EDIT: CONTACT LINKS → update href and .contact-link-value text
+     To add a new link, copy one .contact-link block.
+     contact-link-label : short platform name (shown dimmed, left)
+     contact-link-value : handle or display text (shown right)
+──────────────────────────────────────────────────────────── -->
 <div class="contact-section" id="contact">
   <div class="contact-inner">
     <div class="reveal">
       <div class="contact-title">Let's <span class="accent">connect</span></div>
       <p class="contact-sub">Open to Data Analyst, Business Analyst, and Operations Analyst roles in Calgary. Always happy to talk data, SQL, or career transitions into analytics.</p>
     </div>
+    <!-- EDIT: CONTACT LINKS -->
     <div class="contact-links reveal">
       <a class="contact-link" href="https://www.linkedin.com/in/ghassen-yahia/" target="_blank">
         <span class="contact-link-label">LinkedIn</span>
@@ -824,7 +944,9 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- EDIT: FOOTER ────────────────────────────────────────────
+     Update the tagline text and footer links as needed.
+──────────────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-left">
     <span style="color: var(--green)">~/ghassen.yahia</span> &nbsp;·&nbsp; Calgary, AB &nbsp;·&nbsp; Open to Data &amp; Business Analyst roles
